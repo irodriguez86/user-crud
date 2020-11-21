@@ -13,13 +13,23 @@ function App() {
   return (
       <Router>
           <div className="App">
-              <Header/>
+              <Header title={title}/>
               <div className="container d-flex align-items-center flex-column">
                   <Switch>
                       <Route path="/" exact={true}>
-                          <RegistrationForm />
+                          <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
                       </Route>
+                      <Route path="/register">
+                          <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+                      </Route>
+                      <Route path="/login">
+                          <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+                      </Route>
+                      <PrivateRoute path="/home">
+                          <Home/>
+                      </PrivateRoute>
                   </Switch>
+                  <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
               </div>
           </div>
       </Router>
