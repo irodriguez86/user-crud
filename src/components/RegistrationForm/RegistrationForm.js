@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
-import {API_BASE_URL} from '../../constants/api';
+import { API_BASE_URL } from '../../constants/api';
 import { withRouter } from "react-router-dom";
 
 function RegistrationForm(props) {
@@ -21,24 +21,29 @@ function RegistrationForm(props) {
     const sendDetailsToServer = () => {
         if(state.email.length && state.password.length) {
             props.showError(null);
-            const payload={
+            const payload = {
                 "email":state.email,
                 "password":state.password,
             }
-            axios.post(API_BASE_URL+'register', payload)
+            axios.post(API_BASE_URL+'/user/register', payload)
                 .then(function (response) {
-                    if(response.data.code === 200){
+                    if (response.status === 201){ // Created success
                         setState(prevState => ({
                             ...prevState,
                             'successMessage' : 'Registration successful. Redirecting to home page..'
                         }))
+                        localStorage.setItem('reqres_token', response.data.token);
                         redirectToHome();
                         props.showError(null)
-                    } else{
+                    } else if (response.code === 400) {
+                        console.log('print error:', response);
+                        props.showError(response.data.error);
+                    } else {
                         props.showError("Some error ocurred");
                     }
                 })
                 .catch(function (error) {
+                    console.log('entra en error de register');
                     console.log(error);
                 });
         } else {
