@@ -1,8 +1,19 @@
 import React,{ useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { API_BASE_URL } from '../../constants/api';
-import axios from 'axios'
+import UserService from "../../services/UserService";
+
 function Home(props) {
+    useEffect(() => {
+        UserService.getUserList(1)
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log('data en home', response.data);
+                }
+            })
+            .catch(function (error) {
+                console.log('error en home', error);
+            });
+    });
 
     return(
         <div className="mt-2">

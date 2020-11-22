@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 function Header(props) {
     let title = props.location.pathname.substring(1, props.location.pathname.length);
     if (props.location.pathname === '/') {
-        title = 'Welcome'
+        title = 'Welcome';
     }
 
     function renderLogout() {
@@ -17,8 +17,8 @@ function Header(props) {
     }
 
     function handleLogout() {
-        localStorage.removeItem('reqres_token')
-        props.history.push('/login')
+        localStorage.removeItem('reqres_token');
+        props.history.push('/login');
     }
 
     return(

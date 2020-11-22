@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import axios from 'axios';
 import './LoginForm.css';
-import { API_BASE_URL } from '../../constants/api';
+import React, {useState} from 'react';
+import UserService from '../../services/UserService';
 import { withRouter } from "react-router-dom";
 
 function LoginForm(props) {
@@ -28,7 +27,7 @@ function LoginForm(props) {
             "email": 'eve.holt@reqres.in',
             "password": 'cityslicka',
         }
-        axios.post(API_BASE_URL + '/login', payload)
+        UserService.login(payload)
             .then(function (response) {
                 if (response.status === 200 || response.status === 204) {
                     setState(prevState => ({
@@ -53,6 +52,7 @@ function LoginForm(props) {
                 console.log(error);
             });
     }
+
     const redirectToHome = () => {
         props.updateTitle('Home')
         props.history.push('/home');
