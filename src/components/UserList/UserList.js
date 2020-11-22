@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './UserList.css'
 import UserService from "../../services/UserService";
 import { withRouter } from "react-router-dom";
 import AvatarPlaceholder from "../../img/avatar_placeholder.jpg";
@@ -13,34 +14,23 @@ function UserList(props) {
 
     const getData = async () => {
         const response = await UserService.getUserList();
-        setUsers(response.data);
+        setUsers(response.data.data);
     }
 
     const removeUser = (id) => {
         UserService.removeUser(id)
             .then(function (response) {
                 if (response.status === 204) { // Removed
-                    //Remove from the list
-                    console.log('remove user:', id);
                     const del = users.filter(user => id !== user.id);
                     setUsers(del);
                     props.showError(null);
-                } else if (response.code === 400) {
-                    console.log('print error:', response);
-                    props.showError(response.data.error);
                 } else {
                     props.showError("Some error ocurred");
                 }
             })
             .catch(function (error) {
-                console.log('error removing the element');
                 console.log(error);
             });
-
-        /*axios.delete(`${URL}/${id}`).then(res => {
-            const del = users.filter(user => id !== user.id)
-            setUsers(del)
-        })*/
     }
 
     const redirectToEdit = (id) => {
@@ -48,13 +38,15 @@ function UserList(props) {
         props.history.push('/edit');
     }
 
-    const redirectToAddUser = (id) => {
+    const redirectToAddUser = () => {
         props.updateTitle('Add new user');
         props.history.push('/adduser');
     }
 
     const renderBody = () => {
-        return users?.data?.map(({ id, email, first_name, last_name, avatar }) => {
+        if (!users) return (<tr>There are no users</tr>);
+
+        return users?.map(({ id, email, first_name, last_name, avatar }) => {
             return (
                 <tr key={id}>
                     <td>{email}</td>
@@ -81,8 +73,8 @@ function UserList(props) {
     return (
         <>
             <h1 id='title'>User list</h1>
-            <button className='button btn btn-primary' onClick={() => redirectToAddUser()}>Add new user</button>
-            <table className="table" id='users'>
+            <button className='add-user-btn button btn btn-primary' onClick={redirectToAddUser}>Add new user</button>
+            <table className="table text-left" id='users'>
                 <thead className="thead-dark">
                     <tr>{renderHeader()}</tr>
                 </thead>

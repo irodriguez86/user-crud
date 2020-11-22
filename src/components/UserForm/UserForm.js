@@ -4,12 +4,14 @@ import { withRouter } from "react-router-dom";
 
 function UserForm(props) {
     const [state , setState] = useState({
-        name : "",
-        job : "",
+        email : "",
+        firstName : "",
+        lastName : "",
         successMessage: null
     })
 
     const handleChange = (e) => {
+        console.log('entra en handle change');
         const {id , value} = e.target;
         setState(prevState => ({
             ...prevState,
@@ -18,24 +20,25 @@ function UserForm(props) {
     }
 
     const sendDetailsToServer = () => {
-        if (state.name.length && state.job.length) {
+        if (state.firstName.length && state.lastName.length && state.email.length) {
             props.showError(null);
 
             const payload = {
-                "name": state.name,
-                "job": state.job,
+                "email": state.email,
+                "firstName": state.firstName,
+                "lastName": state.lastName,
             };
 
             UserService.addNewUser(payload)
                 .then(function (response) {
-                    if (response.status === 201 || response.status === 200) { // Created success
+                    if (response.status === 201 || response.status === 200) {
                         setState(prevState => ({
                             ...prevState,
                             'successMessage' : 'New user added successfully, redirect to user list..'
                         }))
                         console.log('Added user: ', response.data);
                         redirectToHome();
-                        props.showError(null)
+                        props.showError(null);
                     } else if (response.code === 400) {
                         console.log('print error:', response);
                         props.showError(response.data.error);
@@ -70,25 +73,36 @@ function UserForm(props) {
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
             <form>
                 <div className="form-group text-left">
-                    <label htmlFor="exampleInputName">Name</label>
-                    <input type="name"
+                    <label htmlFor="exampleInputEmail">Email</label>
+                    <input type="email"
                            className="form-control"
-                           id="name"
-                           placeholder="Enter name"
-                           value={state.name}
+                           id="email"
+                           placeholder="Enter email"
+                           value={state.email}
                            onChange={handleChange}
                     />
                 </div>
                 <div className="form-group text-left">
-                    <label htmlFor="exampleInputJob">Job</label>
-                    <input type="job"
+                    <label htmlFor="exampleInputFirstName">First name</label>
+                    <input type="firstName"
                            className="form-control"
-                           id="job"
-                           placeholder="Job"
-                           value={state.job}
+                           id="firstName"
+                           placeholder="Enter first name"
+                           value={state.firstName}
                            onChange={handleChange}
                     />
                 </div>
+                <div className="form-group text-left">
+                    <label htmlFor="exampleInputLastName">Last name</label>
+                    <input type="lastName"
+                           className="form-control"
+                           id="lastName"
+                           placeholder="Enter last name"
+                           value={state.lastName}
+                           onChange={handleChange}
+                    />
+                </div>
+
                 <button
                     type="submit"
                     className="btn btn-primary"

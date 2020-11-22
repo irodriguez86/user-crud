@@ -1,11 +1,14 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-const Error404 = () => {
+const Error404 = (props) => {
+
     return (
         <div>
             <h2>404 page</h2>
-            <p>Redirecting to Home Page</p>
+            <p>Return to <Link to="/home">Home Page</Link></p>
         </div>
     )
 }
-export default Error404;
+export default withRouter(Error404);
