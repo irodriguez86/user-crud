@@ -6,10 +6,12 @@ function AlertComponent(props) {
     const openModal = () => {
         toggleDisplay('block');
     }
+
     const closeModal = () => {
         toggleDisplay('none');
         props.hideError(null);
     }
+
     useEffect(() => {
         if(props.errorMessage !== null) {
             openModal()

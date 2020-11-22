@@ -18,7 +18,7 @@ function Home(props) {
 
     return(
         <div className="mt-2">
-            <UserList />
+            <UserList showError = {props.showError} updateTitle = {props.updateTitle}/>
         </div>
     )
 }

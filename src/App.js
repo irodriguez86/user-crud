@@ -11,6 +11,7 @@ import {
     Route
 } from "react-router-dom";
 import AlertComponent from './components/AlertComponent/AlertComponent';
+import UserForm from "./components/UserForm/UserForm";
 
 function App() {
     const [title, updateTitle] = useState(null);
@@ -31,7 +32,10 @@ function App() {
                             <LoginForm showError = {updateErrorMessage} updateTitle = {updateTitle}/>
                         </Route>
                         <PrivateRoute path = "/home">
-                            <Home/>
+                            <Home showError = {updateErrorMessage} updateTitle = {updateTitle}/>
+                        </PrivateRoute>
+                        <PrivateRoute path = "/adduser">
+                            <UserForm showError = {updateErrorMessage} updateTitle = {updateTitle}/>
                         </PrivateRoute>
                     </Switch>
                     <AlertComponent errorMessage = {errorMessage} hideError = {updateErrorMessage}/>

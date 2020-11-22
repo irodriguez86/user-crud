@@ -8,7 +8,7 @@ export default class UserService {
     }
 
     static register(payload) {
-        return axios.post(API_BASE_URL+'/register', payload);
+        return axios.post(API_BASE_URL + '/register', payload);
     }
 
     static getUserList(page = 1) {
@@ -21,5 +21,11 @@ export default class UserService {
         );
     }
 
+    static addNewUser(payload) {
+        return axios.post(API_BASE_URL + '/users', payload);
+    }
 
+    static removeUser(id) {
+        return axios.delete(API_BASE_URL + `/users/${id}`);
+    }
 }
