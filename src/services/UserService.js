@@ -2,6 +2,7 @@ import axios from 'axios';
 import {API_BASE_URL} from "../constants/api";
 
 export default class UserService {
+
     static login(payload) {
         return axios.post(API_BASE_URL + '/login', payload);
     }

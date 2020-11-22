@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import axios from 'axios';
 import './RegistrationForm.css';
-import { API_BASE_URL } from '../../constants/api';
+import React, { useState } from 'react';
+import UserService from '../../services/UserService';
 import { withRouter } from "react-router-dom";
 
 function RegistrationForm(props) {
@@ -11,23 +10,25 @@ function RegistrationForm(props) {
         confirmPassword: "",
         successMessage: null
     })
+
     const handleChange = (e) => {
-        const {id , value} = e.target
+        const {id , value} = e.target;
         setState(prevState => ({
             ...prevState,
             [id] : value
-        }))
+        }));
     }
+
     const sendDetailsToServer = () => {
-        if(state.email.length && state.password.length) {
+        if (state.email.length && state.password.length) {
             props.showError(null);
             const payload = {
-                "email":state.email,
-                "password":state.password,
-            }
-            axios.post(API_BASE_URL+'/user/register', payload)
+                "email": state.email,
+                "password": state.password,
+            };
+            UserService.register(payload)
                 .then(function (response) {
-                    if (response.status === 201){ // Created success
+                    if (response.status === 201 || response.status === 200) { // Created success
                         setState(prevState => ({
                             ...prevState,
                             'successMessage' : 'Registration successful. Redirecting to home page..'
@@ -47,27 +48,31 @@ function RegistrationForm(props) {
                     console.log(error);
                 });
         } else {
-            props.showError('Please enter valid username and password')
+            props.showError('Please enter valid username and password');
         }
 
     }
+
     const redirectToHome = () => {
-        props.updateTitle('Home')
+        props.updateTitle('Home');
         props.history.push('/home');
     }
+
     const redirectToLogin = () => {
-        props.updateTitle('Login')
+        props.updateTitle('Login');
         props.history.push('/login');
     }
+
     const handleSubmitClick = (e) => {
         e.preventDefault();
-        if(state.password === state.confirmPassword) {
-            sendDetailsToServer()
+        if (state.password === state.confirmPassword) {
+            sendDetailsToServer();
         } else {
             props.showError('Passwords do not match');
         }
     }
-    return(
+
+    return (
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
             <form>
                 <div className="form-group text-left">
@@ -119,7 +124,7 @@ function RegistrationForm(props) {
             </div>
 
         </div>
-    )
+    );
 }
 
 export default withRouter(RegistrationForm);

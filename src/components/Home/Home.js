@@ -1,6 +1,7 @@
 import React,{ useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import UserService from "../../services/UserService";
+import UserList from "../UserList/UserList";
 
 function Home(props) {
     useEffect(() => {
@@ -17,7 +18,7 @@ function Home(props) {
 
     return(
         <div className="mt-2">
-            Home page content
+            <UserList />
         </div>
     )
 }
