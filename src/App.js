@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import Home from './components/Home/Home';
+import Error404 from "./components/ErrorPages/Error404";
 import PrivateRoute from './utils/PrivateRoute';
 import {
     BrowserRouter as Router,
@@ -37,6 +38,9 @@ function App() {
                         <PrivateRoute path = "/adduser">
                             <UserForm showError = {updateErrorMessage} updateTitle = {updateTitle}/>
                         </PrivateRoute>
+                        <Route path = "*">
+                            <Error404/>
+                        </Route>
                     </Switch>
                     <AlertComponent errorMessage = {errorMessage} hideError = {updateErrorMessage}/>
                 </div>
