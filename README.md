@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# User CRUD
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project consumes a https://reqres.in API to show a list of users, after you login or register
 
 ## Available Scripts
 
