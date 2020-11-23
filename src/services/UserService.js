@@ -28,4 +28,8 @@ export default class UserService {
     static removeUser(id) {
         return axios.delete(API_BASE_URL + `/users/${id}`);
     }
+
+    static getUser(id) {
+        return axios.get(API_BASE_URL + `/users/${id}`);
+    }
 }
