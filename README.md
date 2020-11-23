@@ -2,6 +2,13 @@
 
 This project consumes a https://reqres.in API to show a list of users, after you login or register
 
+## Instructions
+
+### `npm i`
+To install all the dependencies
+### `npm start`
+To run the project and open http://localhost:3000 in the browser
+
 ## Available Scripts
 
 In the project directory, you can run:
