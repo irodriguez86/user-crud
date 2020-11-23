@@ -3,10 +3,12 @@ import './UserList.css'
 import UserService from "../../services/UserService";
 import { withRouter } from "react-router-dom";
 import AvatarPlaceholder from "../../img/avatar_placeholder.jpg";
+import ReactPaginate from 'react-paginate';
 
 function UserList(props) {
 
     const [users, setUsers] = useState([]);
+    const [paginationData, setPaginationData] = useState([]);
 
     useEffect(() => {
         getData();
@@ -15,6 +17,15 @@ function UserList(props) {
     const getData = async () => {
         const response = await UserService.getUserList();
         setUsers(response.data.data);
+        setPaginationData(response.data);
+    }
+
+    const pageCount = paginationData.total_pages;
+
+    async function handlePageClick({ selected: selectedPage }) {
+        const response = await UserService.getUserList(selectedPage + 1);
+        setUsers(response.data.data);
+        setPaginationData(response.data);
     }
 
     const removeUser = (id) => {
@@ -34,7 +45,7 @@ function UserList(props) {
     }
 
     const editUser = (id) => {
-        props.updateTitle('Edit')
+        props.updateTitle('Edit');
         props.history.push(`/edituser/${id}`);
     }
 
@@ -82,6 +93,17 @@ function UserList(props) {
                     {renderBody()}
                 </tbody>
             </table>
+            <ReactPaginate
+                previousLabel={"← Previous"}
+                nextLabel={"Next →"}
+                pageCount={pageCount}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                previousLinkClassName={"pagination__link"}
+                nextLinkClassName={"pagination__link"}
+                disabledClassName={"pagination__link--disabled"}
+                activeClassName={"pagination__link--active"}
+            />
         </>
     );
 }

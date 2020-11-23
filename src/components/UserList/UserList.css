@@ -2,3 +2,35 @@
     float: right;
     margin-bottom: 1em;
 }
+
+.pagination {
+    display: inline-flex;
+    justify-content: space-between;
+    list-style: none;
+    cursor: pointer;
+}
+
+.pagination a {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #6c7ac9;
+    color: #6c7ac9;
+}
+
+.pagination li {
+    margin-left: 10px;
+}
+
+.pagination__link {
+    font-weight: bold;
+}
+
+.pagination__link--active a {
+    color: #fff;
+    background: #6c7ac9;
+}
+
+.pagination__link--disabled a {
+    color: rgb(198, 197, 202);
+    border: 1px solid rgb(198, 197, 202);
+}
