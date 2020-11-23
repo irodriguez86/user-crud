@@ -2,6 +2,10 @@
 
 This project consumes a https://reqres.in API to show a list of users, after you login or register
 
+## Requirements
+
+Node 10.12.0 or higher, since there are ES 7+ features in the project
+
 ## Instructions
 
 ### `npm i`
