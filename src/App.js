@@ -39,7 +39,7 @@ function App() {
                         <PrivateRoute path = "/adduser">
                             <AddUserForm showError = {updateErrorMessage} updateTitle = {updateTitle}/>
                         </PrivateRoute>
-                        <PrivateRoute path = "/edituser">
+                        <PrivateRoute path = "/edituser/:id">
                             <EditUserForm showError = {updateErrorMessage} updateTitle = {updateTitle}/>
                         </PrivateRoute>
                         <Route path = "*">

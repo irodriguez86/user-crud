@@ -33,9 +33,9 @@ function UserList(props) {
             });
     }
 
-    const redirectToEdit = (id) => {
+    const editUser = (id) => {
         props.updateTitle('Edit')
-        props.history.push('/edit');
+        props.history.push(`/edituser/${id}`);
     }
 
     const redirectToAddUser = () => {
@@ -54,7 +54,7 @@ function UserList(props) {
                     <td>{last_name}</td>
                     <td><img width={35} src={AvatarPlaceholder} alt='User avatar'/></td>
                     <td className='opration'>
-                        <button className='btn btn-primary button' onClick={() => redirectToEdit(id)}>Edit</button> {"  "}
+                        <button className='btn btn-primary button' onClick={() => editUser(id)}>Edit</button> {"  "}
                         <button className='btn btn-danger button' onClick={() => removeUser(id)}>Delete</button>
                     </td>
                 </tr>

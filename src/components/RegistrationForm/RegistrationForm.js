@@ -52,8 +52,7 @@ function RegistrationForm(props) {
         } else {
             props.showError('Please enter valid username and password');
         }
-
-    };
+    }
 
     const redirectToHome = () => {
         props.updateTitle('Home');
@@ -77,13 +76,10 @@ function RegistrationForm(props) {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+                <div className="col-md-12 d-flex flex-column justify-content-center">
                     <div className="row">
                         <div className="col-lg-6 col-md-8 mx-auto">
                             <div className="card rounded shadow shadow-sm">
-                                <div className="card-header">
-                                    <h3 className="mb-0">Login</h3>
-                                </div>
                                 <div className="card-body">
                                     <form>
                                         <div className="form-group text-left">
@@ -121,14 +117,12 @@ function RegistrationForm(props) {
                                             type="submit"
                                             className="btn btn-success btn-lg float-right"
                                             onClick={handleSubmitClick}
-                                        >
-                                            Register
-                                        </button>
+                                        >Register</button>
                                     </form>
                                     <div className="alert alert-success mt-2" style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
                                         {state.successMessage}
                                     </div>
-                                    <div className="mt-2">
+                                    <div className="loginMessage">
                                         <span>Already have an account? </span>
                                         <span className="loginText" onClick={() => redirectToLogin()}>Login here</span>
                                     </div>
@@ -136,7 +130,6 @@ function RegistrationForm(props) {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
