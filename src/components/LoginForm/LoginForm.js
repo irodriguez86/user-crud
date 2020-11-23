@@ -20,13 +20,9 @@ function LoginForm(props) {
 
     const handleSubmitClick = (e) => {
         e.preventDefault();
-        /*const payload = {
+        const payload = {
             "email": state.email,
             "password": state.password,
-        }*/
-        const payload = { // TODO: set correct values
-            "email": 'eve.holt@reqres.in',
-            "password": 'cityslicka',
         }
         UserService.login(payload)
             .then(function (response) {
@@ -38,19 +34,16 @@ function LoginForm(props) {
                     localStorage.setItem('reqres_token', response.data.token);
                     redirectToHome();
                     props.showError(null)
-                }
-                else if (response.code === 204) {
+                } else if (response.code === 204) {
                     props.showError("Username and password do not match");
-                }
-                else if (response.code === 400) {
+                } else if (response.code === 400) {
                     props.showError(response.data.error);
-                }
-                else {
+                } else {
                     props.showError("Username does not exists");
                 }
             })
             .catch(function (error) {
-                console.log(error);
+                props.showError("Username does not exists");
             });
     }
 
@@ -67,13 +60,10 @@ function LoginForm(props) {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+                <div className="col-md-12 d-flex flex-column justify-content-center">
                     <div className="row">
                         <div className="col-lg-6 col-md-8 mx-auto">
                             <div className="card rounded shadow shadow-sm">
-                                <div className="card-header">
-                                    <h3 className="mb-0">Login</h3>
-                                </div>
                                 <div className="card-body">
                                     <form>
                                         <div className="form form-group text-left">
@@ -116,7 +106,6 @@ function LoginForm(props) {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
